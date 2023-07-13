@@ -1,12 +1,19 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Home from "@pages/Home";
+import Login from "@pages/Login";
+import Editor from "@pages/Editor";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        dd
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/editor" element={<Editor />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
