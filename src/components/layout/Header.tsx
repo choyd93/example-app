@@ -11,10 +11,13 @@ const Header = () => {
   return (
     <HeaderWrap>
       <LayoutHeader>
-        <LayoutHeaderLeft>example</LayoutHeaderLeft>
+        <LayoutHeaderLeft>
+          <Link to="/">example</Link>
+        </LayoutHeaderLeft>
         <LayoutHeaderRight>
-          <Link to="editor">에디터</Link>
-          <Link to="login">로그인</Link>
+          <Link to="/ag-grid">AG-Grid</Link>
+          <Link to="/editor">Editor</Link>
+          <Link to="/login">Login</Link>
         </LayoutHeaderRight>
       </LayoutHeader>
     </HeaderWrap>
