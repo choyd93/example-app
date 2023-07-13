@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^38.1.1",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
     "@craco/craco": "^7.1.0",
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.14",

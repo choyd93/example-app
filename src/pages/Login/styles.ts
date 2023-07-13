@@ -4,7 +4,7 @@ export const LoginUIWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 16px;
+  padding: 60px 16px 0 16px;
 `;
 
 export const LoginUI = styled.div`

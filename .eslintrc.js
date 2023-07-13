@@ -35,10 +35,9 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "spaced-comment": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    // "arrow-body-style": ["error", "as-needed"],
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+    "import/no-extraneous-dependencies": "off",
     "no-nested-ternary": "off",
     "@typescript-eslint/naming-convention": [
       "error",

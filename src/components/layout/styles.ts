@@ -7,6 +7,7 @@ export const HeaderWrap = styled.header`
   width: 100%;
   max-width: 1188px;
   border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
 `;
 
 export const LayoutHeader = styled.div`
