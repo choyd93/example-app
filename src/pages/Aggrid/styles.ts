@@ -16,9 +16,15 @@ export const Wrap = styled.div`
     font-size: 13px;
     margin-bottom: 1rem;
   }
+  .ag-theme-alpine {
+    width: 650px !important;
+    height: 300px !important;
+  }
 `;
 
 export const AggridWrap = styled.div`
-  width: 800px;
-  margin: 0 auto;
+  width: 648px;
+  margin: 36px auto;
+  font-size: 20px;
+  font-weight: bold;
 `;

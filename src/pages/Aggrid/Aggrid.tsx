@@ -6,9 +6,53 @@ import { AggridWrap, Wrap } from "@pages/Aggrid/styles";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 
+import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
+import "ag-grid-community/styles/ag-theme-alpine.css";
+
 const Aggrid = () => {
   const gridRef = useRef<any>();
-  const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
+
+  const contains = (str: string, substr: string): boolean =>
+    str.includes(substr);
+
+  interface makeAliases {
+    [key: string]: string;
+  }
+
+  const makeFilterParams = {
+    filterOptions: ["contains"],
+    textMatcher: ({
+      value,
+      filterText,
+    }: {
+      value: string;
+      filterText: string | undefined;
+    }): boolean => {
+      const aliases: makeAliases = {
+        usa: "united states",
+        holland: "netherlands",
+        niall: "ireland",
+        sean: "south africa",
+        alberto: "mexico",
+        john: "australia",
+        xi: "china",
+      };
+      const literalMatch = contains(value, filterText || "");
+      return !!literalMatch || !!contains(value, aliases[filterText || ""]);
+    },
+    trimInput: true,
+    debounceMs: 1000,
+  };
+
+  const containerStyle = useMemo(
+    () => ({
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+    }),
+    [],
+  );
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
   const [rowData, setRowData] = useState([
     { make: "Toyota", model: "Celica", price: 35000 },
@@ -16,13 +60,23 @@ const Aggrid = () => {
     { make: "Porsche", model: "Boxster", price: 72000 },
   ]);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-    { headerName: "Make", field: "make" },
-    { headerName: "Model", field: "model" },
+    {
+      headerName: "Make",
+      field: "make",
+      sortable: true,
+      filterParams: makeFilterParams,
+    },
+    {
+      headerName: "Model",
+      field: "model",
+      sortable: true,
+      checkboxSelection: true,
+    },
     {
       headerName: "Price",
       field: "price",
+      sortable: true,
       valueFormatter: (params: any) => {
-        // params.value: number
         return `£${params.value}`;
       },
     },
@@ -38,31 +92,23 @@ const Aggrid = () => {
   }, []);
   const getRowId = useMemo(() => {
     return (params: any) => {
-      // params.data : ICar
       return params.data.make + params.data.model;
     };
   }, []);
 
   const onRowSelected = useCallback((event: any) => {
-    // event.data: ICar | undefined
     if (event.data && event.node.isSelected()) {
       const { price } = event.data;
-      // event.context: IContext
       const discountRate = event.context.discount;
       console.log("Price with 10% discount:", price * discountRate);
     }
   }, []);
 
-  const onShowSelection = useCallback(() => {
-    // api.getSelectedRows() : ICar[]
-    const cars = gridRef.current;
-    if (cars) {
-      cars.api.getSelectedRows();
-      console.log(
-        "Selected cars are",
-        cars.map((c: any) => `${c.make} ${c.model}`),
-      );
-    }
+  /**
+   * excel export (enterprise에서 동작)
+   */
+  const onBtExport = useCallback(() => {
+    gridRef.current.api.exportDataAsExcel();
   }, []);
 
   return (
@@ -73,8 +119,12 @@ const Aggrid = () => {
         <div style={containerStyle}>
           <div className="test-container">
             <div className="test-header">
-              <button type="button" onClick={onShowSelection}>
-                Log Selected Cars
+              <button
+                type="button"
+                onClick={onBtExport}
+                style={{ marginBottom: "5px", fontWeight: "bold" }}
+              >
+                Export to Excel
               </button>
             </div>
             <div style={gridStyle} className="ag-theme-alpine">
