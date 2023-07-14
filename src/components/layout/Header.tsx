@@ -15,6 +15,7 @@ const Header = () => {
           <Link to="/">example</Link>
         </LayoutHeaderLeft>
         <LayoutHeaderRight>
+          <Link to="/chart">Chart</Link>
           <Link to="/ag-grid">AG-Grid</Link>
           <Link to="/editor">Editor</Link>
           <Link to="/login">Login</Link>

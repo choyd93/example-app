@@ -16,6 +16,9 @@ export const LayoutHeader = styled.div`
   align-items: center;
   width: 95%;
   height: 100%;
+  a {
+    font-weight: bold;
+  }
 `;
 
 export const LayoutHeaderLeft = styled.div`
